@@ -57,8 +57,10 @@ class ldapserver (
   $base = 'dc=example,dc=com',
   $instance = 'example',
  ) {
+
   include ldapserver::install
   include ldapserver::service
+  include ldapserver::params
 
   # Since this file will contain the directory manager password I've
   # chosen to drop it in root's home
