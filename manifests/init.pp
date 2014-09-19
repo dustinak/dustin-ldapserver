@@ -20,8 +20,8 @@
 #   file which gets executed on setup
 # [*certdb*]
 #   The password for the NSS certificate database where 389ds stores it's certs
-#   and keys. All three of these password variable could, and probably should, be
-#   replaced with hiera lookups
+#   and keys. All three of these password variable could, and probably should,
+#   be replaced with hiera lookups
 # [*diruser/dirgroup*]
 #   User and group to install 389ds as. This should be fine left as 'nobody'.
 # [*maxfile*]
@@ -56,11 +56,24 @@ class ldapserver (
   $admindomain = 'example.com',
   $base = 'dc=example,dc=com',
   $instance = 'example',
- ) {
+){
 
   include ldapserver::install
   include ldapserver::service
-  include ldapserver::params
+
+  # Dependencies
+  Package['389-ds']    -> Exec['setup389ds']
+  Package['389-ds']    -> File ['/etc/sysconfig/dirsrv']
+
+  Exec['setup389ds']   -> Service['dirsrv']
+  Exec['setup389ds']   -> Service['dirsrv-admin']
+  Exec['setup389ds']   -> File["/etc/dirsrv/slapd-${instance}/pin.txt"]
+
+  # Run the setup
+  exec { 'setup389ds':
+    command => '/usr/sbin/setup-ds-admin.pl --silent -f /root/389dsanswers.inf',
+    onlyif  => "/usr/bin/[ ! -e /etc/dirsrv/slapd-${instance} ]",
+  }
 
   # Since this file will contain the directory manager password I've
   # chosen to drop it in root's home
@@ -79,4 +92,12 @@ class ldapserver (
         content => template('ldapserver/dirsrv.erb')
   }
 
+  # This file is by convention for 389ds. If it's there with the
+  # defined password then the admin UI can just open it every time
+  file { "/etc/dirsrv/slapd-${instance}/pin.txt":
+        mode    => '0400',
+        owner   => $diruser,
+        group   => $dirgroup,
+        content => "Internal (Software) Token:${certdb}"
+  }
 }

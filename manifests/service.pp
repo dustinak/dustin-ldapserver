@@ -7,4 +7,11 @@ class ldapserver::service {
         hasstatus  => true,
         hasrestart => true,
     }
+
+    service { 'dirsrv-admin':
+        ensure     => running,
+        enable     => true,
+        hasstatus  => true,
+        hasrestart => true,
+    }
 }
