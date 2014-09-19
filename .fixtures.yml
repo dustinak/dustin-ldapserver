@@ -1,3 +1,5 @@
 fixtures:
-  symlinks:
+ forge_modules:
+    stdlib:             'puppetlabs/stdlib'
+ symlinks:
     ldapserver: "#{source_dir}"
