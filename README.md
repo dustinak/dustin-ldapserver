@@ -19,6 +19,8 @@ class { 'ldapserver' :
 ##Notes
 
 ##Requirements
+This module expects you have defined EPEL or some other repo that contains
+the 389ds packages.
 
 ##Todo
 * Write it!

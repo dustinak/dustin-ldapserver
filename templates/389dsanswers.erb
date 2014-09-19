@@ -1,0 +1,44 @@
+[General]
+AdminDomain = <%= @admindomain %>
+ConfigDirectoryAdminID = admin
+ConfigDirectoryAdminPwd = <%= @dsadmin %>
+ConfigDirectoryLdapURL = ldap://<%= @fqdn %>:389/o=NetscapeRoot
+FullMachineName = <%= @fqdn %>
+ServerRoot = /usr/lib64/dirsrv
+SuiteSpotGroup = <%= @dirgroup %>
+SuiteSpotUserID = <%= @diruser %>
+[admin]
+Port = 4038
+ServerAdminID = admin
+ServerAdminPwd = <%= @dsadmin %>
+ServerIpAddress = 0.0.0.0
+SysUser = <%= @diruser %>
+[slapd]
+AddOrgEntries = Yes
+AddSampleEntries = No
+RootDNPwd = <%= @dirmanager %>
+InstallLdifFile = suggest
+RootDN = cn=Directory Manager
+ServerIdentifier = <%= @instance %>
+ServerPort = 389
+SlapdConfigForMC = yes
+Suffix = <%= @base %>
+UseExistingMC = 0
+bak_dir = /var/lib/dirsrv/slapd-<%= @instance %>/bak
+bindir = /usr/bin
+cert_dir = /etc/dirsrv/slapd-<%= @instance %>
+config_dir = /etc/dirsrv/slapd-<%= @instance %>
+datadir = /usr/share
+db_dir = /var/lib/dirsrv/slapd-<%= @instance %>/db
+ds_bename = userRoot
+inst_dir = /usr/lib64/dirsrv/slapd-<%= @instance %>
+ldif_dir = /var/lib/dirsrv/slapd-<%= @instance %>/ldif
+localstatedir = /var
+lock_dir = /var/lock/dirsrv/slapd-<%= @instance %>
+log_dir = /var/log/dirsrv/slapd-<%= @instance %>
+naming_value = XXX
+run_dir = /var/run/dirsrv
+sbindir = /usr/sbin
+schema_dir = /etc/dirsrv/slapd-<%= @instance %>/schema
+sysconfdir = /etc
+tmp_dir = /tmp
