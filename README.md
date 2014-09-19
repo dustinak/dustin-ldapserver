@@ -11,11 +11,11 @@ This module will setup and manage the configuration on 389ds/RHDS LDAP servers
 This module should setup and configure your 389ds/RHDS servers
 
 ##Usage
-
+```puppet
 class { 'ldapserver' :
   base  => 'dc=example,dc=com'
 }
-
+```
 ##Notes
 
 ##Requirements
