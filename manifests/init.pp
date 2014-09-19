@@ -1,14 +1,12 @@
 # == Class: ldapserver
 #
-# Full description of class ldapserver here.
+# This class is intended to allow automated management of ldap servers, specifically
+# the 389ds and Redhat Directory Server.
 #
 # === Parameters
 #
-# Document parameters here.
-#
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
+# [*base*]
+#   This is the base DN of your LDAP domain, ex: dc=example,dc=com
 #
 # === Variables
 #
@@ -29,13 +27,15 @@
 #
 # === Authors
 #
-# Author Name <author@domain.com>
+# Dustin Rice <dustinak@gmail.com>
 #
 # === Copyright
 #
-# Copyright 2014 Your name here, unless otherwise noted.
+# Copyright 2014 Dustin Rice, unless otherwise noted.
 #
 class ldapserver {
+
+  include ldapserver::install
 
 
 }

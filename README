@@ -1,16 +1,26 @@
-ldapserver
+#ldapserver
 
-This is the ldapserver module.
+##Overview
 
-License
--------
+NOTE: This is currently a work in progress. Use at your own risk!
 
+This module will setup and manage the configuration on 389ds/RHDS LDAP servers
 
-Contact
--------
+##Module Description
 
+This module should setup and configure your 389ds/RHDS servers
 
-Support
--------
+##Usage
 
-Please log tickets and issues at our [Projects site](http://projects.example.com)
+class { 'ldapserver' :
+  base  => 'dc=example,dc=com'
+}
+
+##Notes
+
+##Requirements
+
+##Todo
+* Write it!
+
+Copyright (C) 2014 Dustin Rice dustinak@gmail.com
