@@ -57,6 +57,9 @@ class ldapserver (
   $base        = 'dc=example,dc=com',
   $instance    = 'example',
   $syntaxcheck = 'on',
+  $accesslogmaxlogsperdir = '10',
+  $accessloglogmaxdiskspace = '1000',
+  $accesslogmaxlogsize = '300',
 ){
 
   include ldapserver::install
@@ -74,7 +77,7 @@ class ldapserver (
   File["/etc/dirsrv/slapd-${instance}/dse.ldif.tmp"]
     ~> Exec['dirsrv-stop']
     ~> Exec['copy-dse']
-    ~> Exec['dirsrv-start']
+    -> Service['dirsrv']
 
   # Run the setup
   exec { 'setup389ds':
@@ -87,8 +90,8 @@ class ldapserver (
   # and then start the service again.
   file { "/etc/dirsrv/slapd-${instance}/dse.ldif.tmp":
     mode    => '0400',
-    owner   => ${dirsrv},
-    group   => ${dirgroup},
+    owner   => $dirsrv,
+    group   => $dirgroup,
     content => template('ldapserver/dse.ldif.erb')
   }
 
@@ -99,11 +102,6 @@ class ldapserver (
 
   exec { 'copy-dse':
     command     => "/bin/rm -f /etc/dirsrv/slapd-${instance}/dse.ldif;/bin/cp /etc/dirsrv/slapd-${instance}/dse.ldif.tmp /etc/dirsrv/slapd-${instance}/dse.ldif",
-    refreshonly => true,
-  }
-
-  exec { 'dirsrv-start':
-    command => '/sbin/service dirsrv start',
     refreshonly => true,
   }
 

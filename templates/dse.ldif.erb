@@ -21,9 +21,10 @@ nsslapd-bakdir: /var/lib/dirsrv/slapd-pdx/bak
 nsslapd-rundir: /var/run/dirsrv
 nsslapd-instancedir: /usr/lib64/dirsrv/slapd-pdx
 nsslapd-accesslog-logging-enabled: on
-nsslapd-accesslog-maxlogsperdir: 10
+nsslapd-accesslog-maxlogsperdir: <%= @accesslogmaxlogsperdir%>
 nsslapd-accesslog-mode: 600
-nsslapd-accesslog-maxlogsize: 100
+nsslapd-accesslog-logmaxdiskspace: <%= @accessloglogmaxdiskspace%>
+nsslapd-accesslog-maxlogsize: <%= @accesslogmaxlogsize%>
 nsslapd-accesslog-logrotationtime: 1
 nsslapd-accesslog-logrotationtimeunit: day
 nsslapd-accesslog-logrotationsync-enabled: off
