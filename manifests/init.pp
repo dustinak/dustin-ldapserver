@@ -70,19 +70,41 @@ class ldapserver (
   Exec['setup389ds']   -> Service['dirsrv-admin']
   Exec['setup389ds']   -> File["/etc/dirsrv/slapd-${instance}/pin.txt"]
 
+  # Exec change for dse.ldif changes
+  File["/etc/dirsrv/slapd-${instance}/dse.ldif.tmp"]
+    ~> Exec['dirsrv-stop']
+    ~> Exec['copy-dse']
+    ~> Exec['dirsrv-start']
+
   # Run the setup
   exec { 'setup389ds':
     command => '/usr/sbin/setup-ds-admin.pl --silent -f /root/389dsanswers.inf',
     onlyif  => "/usr/bin/[ ! -e /etc/dirsrv/slapd-${instance} ]",
   }
 
-  # Since this file will contain the directory manager password I've
-  # chosen to drop it in root's home
-  file { '/root/389dsanswers.inf':
+  # So this is a little odd, I'm making config changes by editting a temporary file
+  # then we fire off an exec chain to stop the server, copy the temp file in place, 
+  # and then start the service again.
+  file { "/etc/dirsrv/slapd-${instance}/dse.ldif.tmp":
     mode    => '0400',
-    owner   => 'root',
-    group   => 'root',
-    content => template('ldapserver/389dsanswers.erb')
+    owner   => "${dirsrv}",
+    group   => "${dirgroup}",
+    content => template('ldapserver/dse.ldif.erb')
+  }
+
+  exec { 'dirsrv-stop':
+    command     => '/sbin/service dirsrv stop',
+    refreshonly => true,
+  }
+
+  exec { 'copy-dse':
+    command     => "/bin/rm -f /etc/dirsrv/slapd-${instance}/dse.ldif;/bin/cp /etc/dirsrv/slapd-${instance}/dse.ldif.tmp /etc/dirsrv/slapd-${instance}/dse.ldif",
+    refreshonly => true,
+  }
+
+  exec { 'dirsrv-start':
+    command => '/sbin/service dirsrv start',
+    refreshonly => true,
   }
 
   # Since this file will contain the directory manager password I've
