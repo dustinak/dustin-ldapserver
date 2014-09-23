@@ -79,26 +79,35 @@ class ldapserver (
   # Since this file will contain the directory manager password I've
   # chosen to drop it in root's home
   file { '/root/389dsanswers.inf':
-        mode    => '0400',
-        owner   => 'root',
-        group   => 'root',
-        content => template('ldapserver/389dsanswers.erb')
+    mode    => '0400',
+    owner   => 'root',
+    group   => 'root',
+    content => template('ldapserver/389dsanswers.erb')
+  }
+
+  # Since this file will contain the directory manager password I've
+  # chosen to drop it in root's home
+  file { '/root/389dsanswers.inf':
+    mode    => '0400',
+    owner   => 'root',
+    group   => 'root',
+    content => template('ldapserver/389dsanswers.erb')
   }
 
   # Only significant thing in this file is the ulimit setting
   file { '/etc/sysconfig/dirsrv':
-        mode    => '0400',
-        owner   => 'root',
-        group   => 'root',
-        content => template('ldapserver/dirsrv.erb')
+    mode    => '0400',
+    owner   => 'root',
+    group   => 'root',
+    content => template('ldapserver/dirsrv.erb')
   }
-
+  
   # This file is by convention for 389ds. If it's there with the
   # defined password then the admin UI can just open it every time
   file { "/etc/dirsrv/slapd-${instance}/pin.txt":
-        mode    => '0400',
-        owner   => $diruser,
-        group   => $dirgroup,
-        content => "Internal (Software) Token:${certdb}"
+    mode    => '0400',
+    owner   => $diruser,
+    group   => $dirgroup,
+    content => "Internal (Software) Token:${certdb}"
   }
 }
