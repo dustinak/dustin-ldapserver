@@ -47,15 +47,16 @@
 # Copyright 2014 Dustin Rice, unless otherwise noted.
 #
 class ldapserver (
-  $dsadmin = 'changemenow',
-  $dirmanager = 'changemenow',
-  $certdb = 'changemenow',
-  $diruser = 'nobody',
-  $dirgroup = 'nobody',
-  $maxfile = '8192',
+  $dsadmin     = 'changemenow',
+  $dirmanager  = 'changemenow',
+  $certdb      = 'changemenow',
+  $diruser     = 'nobody',
+  $dirgroup    = 'nobody',
+  $maxfile     = '8192',
   $admindomain = 'example.com',
-  $base = 'dc=example,dc=com',
-  $instance = 'example',
+  $base        = 'dc=example,dc=com',
+  $instance    = 'example',
+  $syntaxcheck = 'on',
 ){
 
   include ldapserver::install
