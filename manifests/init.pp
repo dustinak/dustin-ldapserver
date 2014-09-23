@@ -87,8 +87,8 @@ class ldapserver (
   # and then start the service again.
   file { "/etc/dirsrv/slapd-${instance}/dse.ldif.tmp":
     mode    => '0400',
-    owner   => "${dirsrv}",
-    group   => "${dirgroup}",
+    owner   => ${dirsrv},
+    group   => ${dirgroup},
     content => template('ldapserver/dse.ldif.erb')
   }
 
