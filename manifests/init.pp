@@ -32,11 +32,25 @@
 #   This is the base suffix for your domain, ex: dc=example,dc=com
 # [*instance*]
 #   Choose a short instance idenfier for your domain, ex: example
+# [*syntaxcheck*]
+#   Enable/disable LDAP syntax checking
+# [*accesslogmaxlogsperdir*]
+#   Sets the max old access log files to retain
+# [*accessloglogmaxdiskspace*]
+#   Max disk space that the access logs should take up in MB
+# [*accesslogmaxlogsize*]
+#   Max access log file size before it rotates in MB
 # === Examples
 #
-#  class { ldapserver:
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#  }
+#  class { 'ldapserver':      
+#    base                     => 'dc=company,dc=com',
+#    instance                 => 'myco',
+#    admindomain              => 'ldap.company.com',
+#    syntaxcheck              => 'off',
+#    accesslogmaxlogsperdir   => '20',
+#    accessloglogmaxdiskspace => '6000',
+#    accesslogmaxlogsize      => '500',}
+#}
 #
 # === Authors
 #
@@ -47,19 +61,19 @@
 # Copyright 2014 Dustin Rice, unless otherwise noted.
 #
 class ldapserver (
-  $dsadmin     = 'changemenow',
-  $dirmanager  = 'changemenow',
-  $certdb      = 'changemenow',
-  $diruser     = 'nobody',
-  $dirgroup    = 'nobody',
-  $maxfile     = '8192',
-  $admindomain = 'example.com',
-  $base        = 'dc=example,dc=com',
-  $instance    = 'example',
-  $syntaxcheck = 'on',
-  $accesslogmaxlogsperdir = '10',
+  $dsadmin                  = 'changemenow',
+  $dirmanager               = 'changemenow',
+  $certdb                   = 'changemenow',
+  $diruser                  = 'nobody',
+  $dirgroup                 = 'nobody',
+  $maxfile                  = '8192',
+  $admindomain              = 'example.com',
+  $base                     = 'dc=example,dc=com',
+  $instance                 = 'example',
+  $syntaxcheck              = 'on',
+  $accesslogmaxlogsperdir   = '10',
   $accessloglogmaxdiskspace = '1000',
-  $accesslogmaxlogsize = '300',
+  $accesslogmaxlogsize      = '300',
 ){
 
   include ldapserver::install
@@ -72,6 +86,7 @@ class ldapserver (
   Exec['setup389ds']   -> Service['dirsrv']
   Exec['setup389ds']   -> Service['dirsrv-admin']
   Exec['setup389ds']   -> File["/etc/dirsrv/slapd-${instance}/pin.txt"]
+  Exec['setup389ds']   -> File["/etc/dirsrv/slapd-${instance}/dse.ldif.tmp"]
 
   # Exec change for dse.ldif changes
   File["/etc/dirsrv/slapd-${instance}/dse.ldif.tmp"]
