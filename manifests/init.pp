@@ -116,7 +116,7 @@ class ldapserver (
   }
 
   exec { 'copy-dse':
-    command     => "/bin/rm -f /etc/dirsrv/slapd-${instance}/dse.ldif;/bin/cp /etc/dirsrv/slapd-${instance}/dse.ldif.tmp /etc/dirsrv/slapd-${instance}/dse.ldif",
+    command     => "/bin/cp /etc/dirsrv/slapd-${instance}/dse.ldif.tmp /etc/dirsrv/slapd-${instance}/dse.ldif",
     refreshonly => true,
   }
 
