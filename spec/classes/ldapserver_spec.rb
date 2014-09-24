@@ -16,7 +16,7 @@ describe 'ldapserver' do
     end
 
     it do
-      should contain_file('/root/389dsanswers.inf')\
+      should contain_file('/root/example-answers.inf')\
         .with_content(/^config_dir = \/etc\/dirsrv\/slapd-example$/)\
         .with_content(/^RootDNPwd = changemenow$/)\
         .with_content(/^SysUser = nobody$/)\
