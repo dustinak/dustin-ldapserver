@@ -96,7 +96,7 @@ class ldapserver (
 
   # Run the setup
   exec { 'setup389ds':
-    command => '/usr/sbin/setup-ds-admin.pl --silent -f /root/389dsanswers.inf',
+    command => "/usr/sbin/setup-ds-admin.pl --silent -f /root/${instance}answers.inf",
     onlyif  => "/usr/bin/[ ! -e /etc/dirsrv/slapd-${instance} ]",
   }
 
@@ -122,7 +122,7 @@ class ldapserver (
 
   # Since this file will contain the directory manager password I've
   # chosen to drop it in root's home
-  file { '/root/389dsanswers.inf':
+  file { "/root/${instance}-answers.inf":
     mode    => '0400',
     owner   => 'root',
     group   => 'root',
