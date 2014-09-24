@@ -22,7 +22,7 @@ RootDN = cn=Directory Manager
 ServerIdentifier = <%= @instance %>
 ServerPort = 389
 SlapdConfigForMC = yes
-Suffix = <%= @base %>
+Suffix = <%= @suffix%>
 UseExistingMC = 0
 bak_dir = /var/lib/dirsrv/slapd-<%= @instance %>/bak
 bindir = /usr/bin

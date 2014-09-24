@@ -15,7 +15,7 @@ This module should setup and configure your 389ds/RHDS servers
 ##Usage
 ```puppet
   class { 'ldapserver':
-    base                     => 'dc=example,dc=com',
+    suffix                   => 'dc=example,dc=com',
     instance                 => 'example',
     admindomain              => 'ldap.example.com',
     syntaxcheck              => 'off',
@@ -28,7 +28,7 @@ This module should setup and configure your 389ds/RHDS servers
 
 ##Requirements
 * RHEL/CentOS 6
-* EPEL
+* EPEL repo
 * PuppetLabs stdlib Module
 
 ##Todo

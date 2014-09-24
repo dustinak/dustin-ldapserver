@@ -5,8 +5,8 @@
 #
 # === Parameters
 #
-# [*base*]
-#   This is the base DN of your LDAP domain, ex: dc=example,dc=com
+# [*suffix*]
+#   This is the suffix DN of your LDAP domain, ex: dc=example,dc=com
 #
 # === Variables
 #
@@ -28,8 +28,8 @@
 #   Max open file descriptors. Depends on your implementation
 # [*admindomain*]
 #   If you intend to setup the admin server, choose a domain here
-# [*base*]
-#   This is the base suffix for your domain, ex: dc=example,dc=com
+# [*suffix*]
+#   This is the suffix for your domain, ex: dc=example,dc=com
 # [*instance*]
 #   Choose a short instance idenfier for your domain, ex: example
 # [*syntaxcheck*]
@@ -43,7 +43,7 @@
 # === Examples
 #
 #  class { 'ldapserver':      
-#    base                     => 'dc=company,dc=com',
+#    suffix                   => 'dc=company,dc=com',
 #    instance                 => 'myco',
 #    admindomain              => 'ldap.company.com',
 #    syntaxcheck              => 'off',
@@ -68,7 +68,7 @@ class ldapserver (
   $dirgroup                 = 'nobody',
   $maxfile                  = '8192',
   $admindomain              = 'example.com',
-  $base                     = 'dc=example,dc=com',
+  $suffix                   = 'dc=example,dc=com',
   $instance                 = 'example',
   $syntaxcheck              = 'on',
   $accesslogmaxlogsperdir   = '10',
