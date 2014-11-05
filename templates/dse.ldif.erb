@@ -193,6 +193,16 @@ modifiersName: cn=server,cn=plugins,cn=config
 createTimestamp: 20140923172229Z
 modifyTimestamp: 20140923172229Z
 
+<% if @sslenable -%>
+dn: cn=RSA,cn=encryption,cn=config
+nsSSLToken: internal (software)
+nsSSLPersonalitySSL: <%= @instance%>-Cert
+nsSSLActivation: on
+cn: RSA
+objectClass: top
+objectClass: nsEncryptionModule
+
+<% end %>
 dn: cn=options,cn=features,cn=config
 objectClass: top
 objectClass: nsContainer
