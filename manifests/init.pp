@@ -74,25 +74,56 @@ class ldapserver (
   $accesslogmaxlogsperdir   = '10',
   $accessloglogmaxdiskspace = '1000',
   $accesslogmaxlogsize      = '300',
+  $sslcertpath              = '/etc/pki/tls/certs/server.crt',
+  $sslkeypath               = '/etc/pki/tls/private/server.key',
+  $sslenable                = false,
 ){
 
   include ldapserver::install
   include ldapserver::service
 
   # Dependencies
-  Package['389-ds']    -> Exec['setup389ds']
-  Package['389-ds']    -> File ['/etc/sysconfig/dirsrv']
+  Package['389-ds']              -> Exec['setup389ds']
+  Package['389-ds']              -> File ['/etc/sysconfig/dirsrv']
 
-  Exec['setup389ds']   -> Service['dirsrv']
-  Exec['setup389ds']   -> Service['dirsrv-admin']
-  Exec['setup389ds']   -> File["/etc/dirsrv/slapd-${instance}/pin.txt"]
-  Exec['setup389ds']   -> File["/etc/dirsrv/slapd-${instance}/dse.ldif.tmp"]
+  Exec['setup389ds']             -> Service['dirsrv']
+  Exec['setup389ds']             -> Service['dirsrv-admin']
+  Exec['setup389ds']             -> File["/etc/dirsrv/slapd-${instance}/pin.txt"]
+  Exec['setup389ds']             -> File["/etc/dirsrv/slapd-${instance}/dse.ldif.tmp"]
 
   # Exec change for dse.ldif changes
   File["/etc/dirsrv/slapd-${instance}/dse.ldif.tmp"]
     ~> Exec['dirsrv-stop']
     ~> Exec['copy-dse']
     -> Service['dirsrv']
+
+  # SSL Bits
+  if $sslenable == true {
+    # Setup our file resources so we can notify the Nsstools module
+    # in the event they change
+    ensure_resource('file',$sslcertpath, {'ensure' => 'present' })
+    ensure_resource('file',$sslkeypath, {'ensure' => 'present' })
+
+    # SSL Related dependencies and notifications
+    Nsstools::Create["/etc/dirsrv/slapd-${instance}"] -> Nsstools::Add_cert_and_key["${instance}-Cert"]
+    File["${sslcertpath}"]                            ~> Nsstools::Add_cert_and_key["${instance}-Cert"]
+    Nsstools::Add_cert_and_key["${instance}-Cert"]    ~> Service['dirsrv']
+
+    nsstools::create { "/etc/dirsrv/slapd-${instance}":
+      owner          => $diruser,
+      group          => $dirgroup,
+      mode           => '0660',
+      password       => $certdb,
+      manage_certdir => false,
+    }
+
+    nsstools::add_cert_and_key{ "${instance}-Cert":
+      certdir => '/etc/dirsrv/slapd-psu',
+      cert    => "/etc/pki/tls/certs/${::fqdn}.crt",
+      key     => "/etc/pki/tls/private/${::fqdn}.key",
+      notify  => Service['dirsrv'],
+    }
+  }
 
   # Run the setup
   exec { 'setup389ds':

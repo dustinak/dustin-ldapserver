@@ -1,4 +1,4 @@
-#dustin-ldapserver
+#puppet-ldapserver
 
 [![Build Status](https://travis-ci.org/dustinak/dustin-ldapserver.svg?branch=master)](https://travis-ci.org/dustinak/dustin-ldapserver)
 
