@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
 
 gem 'puppetlabs_spec_helper', '>= 0.1.0', :require => false
-gem 'rspec', '~> 2', :require => false
-gem 'rspec-core', '~> 2', :require => false
-gem 'rspec-mocks', '~> 2', :require => false
-gem 'rspec-expectations', '~> 2', :require => false
-gem 'rspec-puppet', '< 1.0.0', :require => false
+gem 'puppet-lint',            :require => false
+gem 'rspec',                  :require => false
+gem 'rspec-core',             :require => false
+gem 'rspec-mocks',            :require => false
+gem 'rspec-expectations',     :require => false
+gem 'rspec-puppet',           :require => false
 
 if puppetversion = ENV['PUPPET_VERSION']
   gem 'puppet', puppetversion, :require => false
