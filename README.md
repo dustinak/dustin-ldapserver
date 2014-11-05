@@ -1,5 +1,7 @@
 #dustin-ldapserver
 
+[![Build Status](https://travis-ci.org/dustinak/dustin-ldapserver.svg?branch=master)](https://travis-ci.org/dustinak/dustin-ldapserver)
+
 ##Overview
 
 NOTE: This is currently a work in progress. Use at your own risk!
