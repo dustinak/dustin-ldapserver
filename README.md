@@ -30,6 +30,7 @@ This module should setup and configure your 389ds/RHDS servers
 * RHEL/CentOS 6
 * EPEL repo
 * PuppetLabs stdlib Module
+* NSSTools Module
 
 ##Todo
 * Make it work with Debian/Ubuntu
