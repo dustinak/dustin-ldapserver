@@ -86,9 +86,9 @@ aci: (targetattr = "*")(version 3.0; acl "SIE Group"; allow (all) groupdn = "l
  e.com,ou=oit.pdx.edu,o=NetscapeRoot";)
 modifiersName: cn=directory manager
 modifyTimestamp: 20140923172230Z
-<% if @sslenable -%>
+<%if @sslenable-%>
 nsslapd-security: on
-<% end %>
+<%end-%>
 nsslapd-rootpw: {SSHA}mrknq8nDDUyla5usiq3ZkEoInP+JOAT5psOB1g==
 
 dn: cn=monitor
@@ -196,7 +196,7 @@ modifiersName: cn=server,cn=plugins,cn=config
 createTimestamp: 20140923172229Z
 modifyTimestamp: 20140923172229Z
 
-<% if @sslenable -%>
+<% if @sslenable-%>
 dn: cn=RSA,cn=encryption,cn=config
 nsSSLToken: internal (software)
 nsSSLPersonalitySSL: <%= @instance%>-Cert
@@ -205,7 +205,7 @@ cn: RSA
 objectClass: top
 objectClass: nsEncryptionModule
 
-<% end %>
+<% end-%>
 dn: cn=options,cn=features,cn=config
 objectClass: top
 objectClass: nsContainer
