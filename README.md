@@ -36,5 +36,7 @@ This module should setup and configure your 389ds/RHDS servers
 
 ##Todo
 * Make it work with Debian/Ubuntu
+* Make SSL certs update correctly
+* Be able to ensure = 'absent' the answers file when it is no longer needed
 
 Copyright (C) 2014 Dustin Rice dustinak@gmail.com
