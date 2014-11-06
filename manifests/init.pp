@@ -118,10 +118,9 @@ class ldapserver (
     }
 
     nsstools::add_cert_and_key{ "${instance}-Cert":
-      certdir => '/etc/dirsrv/slapd-psu',
-      cert    => "/etc/pki/tls/certs/${::fqdn}.crt",
-      key     => "/etc/pki/tls/private/${::fqdn}.key",
-      notify  => Service['dirsrv'],
+      certdir => "/etc/dirsrv/slapd-${instance}",
+      cert    => $sslcertpath,
+      key     => $sslkeypath,
     }
   }
 
