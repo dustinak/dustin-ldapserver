@@ -86,6 +86,9 @@ aci: (targetattr = "*")(version 3.0; acl "SIE Group"; allow (all) groupdn = "l
  e.com,ou=oit.pdx.edu,o=NetscapeRoot";)
 modifiersName: cn=directory manager
 modifyTimestamp: 20140923172230Z
+<% if @sslenable -%>
+nsslapd-security: on
+<% end %>
 nsslapd-rootpw: {SSHA}mrknq8nDDUyla5usiq3ZkEoInP+JOAT5psOB1g==
 
 dn: cn=monitor
