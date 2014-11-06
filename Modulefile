@@ -9,3 +9,4 @@ project_page 'https://forge.puppetlabs.com/dustin/ldapserver'
 
 ## Add dependencies, if any:
 dependency 'puppetlabs/stdlib', '>= 4.3.2'
+dependency 'jhoblitt/nsstools', '>= 1.0.2'
