@@ -13,6 +13,13 @@ describe 'ldapserver' do
         .with_content(/^nsslapd-accesslog-maxlogsperdir: 10$/)\
         .with_content(/^nsslapd-accesslog-logmaxdiskspace: 1000$/)\
         .with_content(/^nsslapd-accesslog-maxlogsize: 300$/)\
+        .without_content(/^dn: cn=RSA,cn=encryption,cn=config$/)\
+        .without_content(/^nsSSLToken: internal \(software\)$/)\
+        .without_content(/^nsSSLPersonalitySSL: example-Cert$/)\
+        .without_content(/^nsSSLActivation: on$/)\
+        .without_content(/^cn: RSA$/)\
+        .without_content(/^objectClass: nsEncryptionModule$/)\
+        .without_content(/^nsslapd-security: on$/)\
     end
 
     it do
@@ -27,6 +34,20 @@ describe 'ldapserver' do
     it do
       should contain_file('/etc/dirsrv/slapd-example/pin.txt')\
         .with_content(/^Internal \(Software\) Token:changemenow$/)\
+    end
+  end
+  
+  context 'with ssl enabled' do
+  let(:params) {{ :sslenable => 'true' }}
+    it do
+      should contain_file('/etc/dirsrv/slapd-example/dse.ldif.tmp')\
+        .with_content(/^dn: cn=RSA,cn=encryption,cn=config$/)\
+        .with_content(/^nsSSLToken: internal \(software\)$/)\
+        .with_content(/^nsSSLPersonalitySSL: example-Cert$/)\
+        .with_content(/^nsSSLActivation: on$/)\
+        .with_content(/^cn: RSA$/)\
+        .with_content(/^objectClass: nsEncryptionModule$/)\
+        .with_content(/^nsslapd-security: on$/)\
     end
   end
 end
