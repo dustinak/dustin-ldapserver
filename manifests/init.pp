@@ -127,7 +127,7 @@ class ldapserver (
   # Run the setup
   exec { 'setup389ds':
     command => "/usr/sbin/setup-ds-admin.pl --silent -f /root/${instance}answers.inf",
-    onlyif  => "/usr/bin/[ ! -e /etc/dirsrv/slapd-${instance} ]",
+    creates => "/etc/dirsrv/slapd-${instance}",
   }
 
   # So this is a little odd, I'm making config changes by editting a temporary file
