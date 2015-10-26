@@ -1,12 +1,13 @@
 {
   "name": "dustin-ldapserver",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Dustin Rice",
   "summary": "Manages 389ds (RHDS) ldap servers",
   "license": "Apache-2.0",
   "source": "https://github.com/dustinak/dustin-ldapserver.git",
   "project_page": "https://github.com/dustinak/dustin-ldapserver",
   "issues_url": "https://github.com/dustinak/dustin-ldapserver/issues",
+  "tags": ["ldap", "389ds", "rhds"],
   "operatingsystem_support": [
     {
       "operatingsystem":"RedHat",
