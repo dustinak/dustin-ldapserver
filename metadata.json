@@ -1,6 +1,6 @@
 {
   "name": "dustin-ldapserver",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Dustin Rice",
   "summary": "Manages 389ds (RHDS) ldap servers",
   "license": "Apache-2.0",
