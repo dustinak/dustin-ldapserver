@@ -7,8 +7,14 @@
   "source": "https://github.com/dustinak/dustin-ldapserver.git",
   "project_page": "https://github.com/dustinak/dustin-ldapserver",
   "issues_url": "https://github.com/dustinak/dustin-ldapserver/issues",
+  "operatingsystem_support": [
+    {
+    "operatingsystem":"RedHat",
+    "operatingsystemrelease":[ "5.0", "6.0" ]
+    },
+   ],
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+    {"name":"jhoblitt-nsstools","version_requirement":">= 2.0.0"}
   ]
 }
 
