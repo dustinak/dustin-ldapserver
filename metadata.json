@@ -1,6 +1,6 @@
 {
   "name": "dustin-ldapserver",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Dustin Rice",
   "summary": "Manages 389ds (RHDS) ldap servers",
   "license": "Apache-2.0",
@@ -9,12 +9,11 @@
   "issues_url": "https://github.com/dustinak/dustin-ldapserver/issues",
   "operatingsystem_support": [
     {
-    "operatingsystem":"RedHat",
-    "operatingsystemrelease":[ "5.0", "6.0" ]
-    },
-   ],
+      "operatingsystem":"RedHat",
+      "operatingsystemrelease":[ "5.0", "6.0" ]
+    }
+  ],
   "dependencies": [
     {"name":"jhoblitt-nsstools","version_requirement":">= 2.0.0"}
   ]
 }
-
