@@ -106,7 +106,7 @@ class ldapserver (
 
     # SSL Related dependencies and notifications
     Nsstools::Create["/etc/dirsrv/slapd-${instance}"] -> Nsstools::Add_cert_and_key["${instance}-Cert"]
-    File["${sslcertpath}"]                            ~> Nsstools::Add_cert_and_key["${instance}-Cert"]
+    File[$sslcertpath]                            ~> Nsstools::Add_cert_and_key["${instance}-Cert"]
     Nsstools::Add_cert_and_key["${instance}-Cert"]    ~> Service['dirsrv']
 
     nsstools::create { "/etc/dirsrv/slapd-${instance}":
@@ -135,7 +135,7 @@ class ldapserver (
   # and then start the service again.
   file { "/etc/dirsrv/slapd-${instance}/dse.ldif.tmp":
     mode    => '0400',
-    owner   => $dirsrv,
+    owner   => $diruser,
     group   => $dirgroup,
     content => template('ldapserver/dse.ldif.erb')
   }
