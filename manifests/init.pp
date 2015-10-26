@@ -84,7 +84,7 @@ class ldapserver (
 
   # Dependencies
   Package['389-ds']              -> Exec['setup389ds']
-  Package['389-ds']              -> File ['/etc/sysconfig/dirsrv']
+  Package['389-ds']              -> File['/etc/sysconfig/dirsrv']
 
   Exec['setup389ds']             -> Service['dirsrv']
   Exec['setup389ds']             -> Service['dirsrv-admin']
